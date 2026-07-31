@@ -2,11 +2,8 @@ package com.furnihub.backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record LoginRequest(
+public record ForgotPasswordRequest(
         @NotBlank(message = "Email or mobile is required")
-        String emailOrMobile,
-
-        @NotBlank(message = "Password is required")
-        String password
+        String emailOrMobile
 ) {
 }

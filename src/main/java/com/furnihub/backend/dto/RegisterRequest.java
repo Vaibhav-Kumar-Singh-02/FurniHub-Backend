@@ -20,7 +20,9 @@ public record RegisterRequest(
         String mobile,
 
         @NotBlank(message = "Password is required")
-        @Size(min = 8, message = "Password must contain at least 8 characters")
+        @Size(min = 8, max = 64, message = "Password must contain at least 8 characters")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
+                message = "Password must include at least one uppercase letter, one lowercase letter, one number and one special character")
         String password
 ) {
 }
