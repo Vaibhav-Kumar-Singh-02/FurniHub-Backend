@@ -32,7 +32,7 @@ mysql -u root -p < database/schema.sql
 ```
 
 #### 2. Configure Backend (if needed)
-If your MySQL password is different from `Robin@Singh@755321`, edit `backend/src/main/resources/application.properties`:
+If your MySQL password is different from `vaibhav`, edit `backend/src/main/resources/application.properties`:
 ```properties
 spring.datasource.password=YOUR_PASSWORD
 ```
