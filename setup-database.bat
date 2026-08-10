@@ -7,11 +7,11 @@ echo.
 echo Connecting to MySQL and setting up database...
 echo.
 
-mysql -u root -pRobin@Singh@755321 -e "CREATE DATABASE IF NOT EXISTS e_commerce;"
+mysql -u root -pvaibhav -e "CREATE DATABASE IF NOT EXISTS e_commerce;"
 
 echo.
 echo Running schema.sql...
-mysql -u root -pRobin@Singh@755321 e_commerce < database\schema.sql
+mysql -u root -pvaibhav e_commerce < database\schema.sql
 
 echo.
 echo ==========================================

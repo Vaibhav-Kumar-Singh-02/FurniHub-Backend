@@ -13,7 +13,7 @@ node --version 2>&1
 echo.
 
 echo [Check 3] MySQL Connection...
-mysql -u root -pRobin@Singh@755321 -e "SELECT 'MySQL Connected' AS Status;" 2>nul
+mysql -u root -pvaibhv -e "SELECT 'MySQL Connected' AS Status;" 2>nul
 if %errorlevel% neq 0 (
     echo [WARNING] Could not connect to MySQL. Ensure MySQL is running.
 )
