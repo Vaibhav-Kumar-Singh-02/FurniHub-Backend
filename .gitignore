@@ -1,0 +1,29 @@
+# Build output
+backend/target/
+
+# Frontend
+frontend/
+frontend-error.log
+frontend.log
+
+# Logs
+*.log
+backend-error.log
+
+# Test files
+test-*.json
+
+# IDE
+.vscode/
+
+# Maven local distribution (use wrapper or system maven)
+apache-maven-*/
+maven.zip
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Dependencies
+package-lock.json
+node_modules/
