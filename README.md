@@ -231,7 +231,7 @@ docker-compose down -v
 ### Backend Tests
 ```bash
 cd backend
-.\mvnw test
+./mvnw test
 ```
 
 ### Frontend Tests
