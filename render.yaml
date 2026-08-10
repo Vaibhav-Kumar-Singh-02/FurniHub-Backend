@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: furnihub-backend
+    runtime: docker
+    plan: starter
+    branch: main
+    rootDir: backend
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: DB_URL
+        value: jdbc:mysql://<your-aiven-host>:<your-aiven-port>/<your-aiven-db>?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      - key: DB_USERNAME
+        value: <your-aiven-username>
+      - key: DB_PASSWORD
+        value: <your-aiven-password>
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: true
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://your-frontend.vercel.app
+      - key: RAZORPAY_KEY_ID
+        value: rzp_test_TLJ4wDlknTTeqx
+      - key: RAZORPAY_KEY_SECRET
+        value: OaxbN5tf8PlOXaNG0WZ8FduM
+      - key: RAZORPAY_MODE
+        value: test
+      - key: PORT
+        value: 8080

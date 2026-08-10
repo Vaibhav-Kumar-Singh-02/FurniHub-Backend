@@ -7,7 +7,7 @@ A full-stack furniture e-commerce application built with **React.js** (Frontend)
 ### Prerequisites
 - **Java 17+**
 - **Node.js 18+** & npm
-- **MySQL 8.0+**
+- **MySQL 8.0+** (or Aiven MySQL)
 - **Maven 3.8+** (or use included `mvnw`)
 
 ### Option 1: Docker (Recommended)
@@ -32,9 +32,12 @@ mysql -u root -p < database/schema.sql
 ```
 
 #### 2. Configure Backend (if needed)
-If your MySQL password is different from `Robin@Singh@755321`, edit `backend/src/main/resources/application.properties`:
+Edit `backend/src/main/resources/application.properties` or set environment variables:
 ```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/e_commerce
+spring.datasource.username=root
 spring.datasource.password=YOUR_PASSWORD
+jwt.secret=YourSecretKey
 ```
 
 #### 3. Start Backend
@@ -56,6 +59,42 @@ npm start
 ```bash
 double-click start.bat
 ```
+
+## ☁️ Cloud Deployment
+
+### Frontend on Vercel
+
+1. Import the `FurniHub-Frontend` repository into Vercel
+2. Set the Environment Variable:
+   - `REACT_APP_API_URL` = `https://your-backend.onrender.com/api`
+3. Deploy
+
+Vercel will automatically detect the React app and run `npm run build`.
+
+### Backend on Render
+
+1. Import the `FurniHub-Backend` repository into Render
+2. Select **Docker** as the environment (or use the included `render.yaml`)
+3. Set Environment Variables:
+   - `DB_URL` = Your Aiven MySQL JDBC URL
+   - `DB_USERNAME` = Your Aiven MySQL username
+   - `DB_PASSWORD` = Your Aiven MySQL password
+   - `JWT_SECRET` = A secure random string
+   - `COOKIE_SECURE` = `true`
+   - `CORS_ALLOWED_ORIGINS` = `https://your-frontend.vercel.app`
+   - `RAZORPAY_KEY_ID` = Your Razorpay key
+   - `RAZORPAY_KEY_SECRET` = Your Razorpay secret
+4. Deploy
+
+### Database on Aiven
+
+1. Create a MySQL service on [Aiven](https://aiven.io/)
+2. Note the connection details: host, port, database name, username, password
+3. Update the backend environment variables with your Aiven MySQL credentials
+4. Run the schema on your Aiven database:
+   ```bash
+   mysql -h <aiven-host> -P <aiven-port> -u <aiven-user> -p < database/schema.sql
+   ```
 
 ## 🔗 URLs
 
@@ -154,25 +193,29 @@ FurniHub/
 
 ## 🔧 Configuration
 
-### Backend (`application.properties`)
-```properties
-# Database
-spring.datasource.url=jdbc:mysql://localhost:3306/e_commerce
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD
+### Backend Environment Variables
+All backend settings can be configured via environment variables (recommended for production):
 
-# JWT
-jwt.secret=YourSecretKey
-jwt.expiration=2592000000
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DB_URL` | MySQL JDBC URL | `jdbc:mysql://localhost:3306/e_commerce?...` |
+| `DB_USERNAME` | MySQL username | `root` |
+| `DB_PASSWORD` | MySQL password | `Robin@Singh@755321` |
+| `JWT_SECRET` | JWT signing secret | `FurniHubSecretKeyForJWTTokenGeneration2024SecureRandomValue` |
+| `PORT` | Server port | `8080` |
+| `COOKIE_SECURE` | Secure cookie flag | `false` |
+| `CORS_ALLOWED_ORIGINS` | Comma-separated allowed origins | Localhost URLs |
+| `RAZORPAY_KEY_ID` | Razorpay key ID | Test key |
+| `RAZORPAY_KEY_SECRET` | Razorpay key secret | Test secret |
 
-# Server
-server.port=8080
-```
+### Frontend Environment Variables
+Create a `.env` file in the `frontend/` directory or set in Vercel:
 
-### Frontend (`.env`)
 ```env
-REACT_APP_API_URL=http://localhost:8080/api
+REACT_APP_API_URL=https://your-backend.onrender.com/api
 ```
+
+In production on Vercel, set `REACT_APP_API_URL` in the Vercel dashboard Environment Variables.
 
 ## 🐳 Docker Commands
 

@@ -1,22 +1,15 @@
 # Build output
 backend/target/
 
-# Frontend
-frontend/
-frontend-error.log
-frontend.log
-
 # Logs
 *.log
 backend-error.log
-
-# Test files
 test-*.json
 
 # IDE
 .vscode/
 
-# Maven local distribution (use wrapper or system maven)
+# Maven local distribution
 apache-maven-*/
 maven.zip
 
