@@ -42,7 +42,7 @@ public class AdminAuthService {
             return new AuthResponse("Invalid Email/Mobile Number or Password", false, null, null, null, null);
         }
 
-        if (!admin.getIsActive()) {
+        if (Boolean.FALSE.equals(admin.getIsActive())) {
             return new AuthResponse("Admin account is disabled", false, null, null, null, null);
         }
 

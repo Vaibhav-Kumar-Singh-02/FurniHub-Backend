@@ -33,8 +33,10 @@ INSERT IGNORE INTO productimages (image_id, product_id, image_url) VALUES
 (10, 10, 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80');
 
 -- 4. Insert Default Admin User (Email: admin@furnihub.com | Password: admin123)
-INSERT IGNORE INTO admin_users (admin_id, username, full_name, email, mobile, password, role) 
-VALUES (1, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN');
+INSERT INTO admin_users (admin_id, username, full_name, email, mobile, password, role, is_active) 
+VALUES (1, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN', true)
+ON DUPLICATE KEY UPDATE is_active = true;
 
-INSERT IGNORE INTO users (user_id, username, full_name, email, mobile, password, role) 
-VALUES (1, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$rH8qZ7xY5wE3vR2tY7uI.eKjH8gF4dS2aB3cD4eF5gH6iJ7kL8mN9', 'ADMIN');
+INSERT INTO users (user_id, username, full_name, email, mobile, password, role, is_active) 
+VALUES (1, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$rH8qZ7xY5wE3vR2tY7uI.eKjH8gF4dS2aB3cD4eF5gH6iJ7kL8mN9', 'ADMIN', true)
+ON DUPLICATE KEY UPDATE is_active = true;
