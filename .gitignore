@@ -1,6 +1,11 @@
 # Build output
 backend/target/
 
+# Environment variables
+.env
+.env.local
+.env.*.local
+
 # Logs
 *.log
 backend-error.log
