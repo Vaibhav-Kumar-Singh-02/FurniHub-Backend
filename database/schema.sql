@@ -1,6 +1,5 @@
--- Create database if not exists
-CREATE DATABASE IF NOT EXISTS e_commerce;
-USE e_commerce;
+-- Run this schema against your configured database
+-- The application will connect to the database specified in DB_URL
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
