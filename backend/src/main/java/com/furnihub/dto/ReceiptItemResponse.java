@@ -14,4 +14,5 @@ public class ReceiptItemResponse {
     private Integer quantity;
     private BigDecimal pricePerUnit;
     private BigDecimal totalPrice;
+    private String imageUrl;
 }

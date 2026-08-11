@@ -7,10 +7,12 @@ import com.furnihub.entity.Admin;
 import com.furnihub.entity.Order;
 import com.furnihub.entity.OrderItem;
 import com.furnihub.entity.Product;
+import com.furnihub.entity.ProductImage;
 import com.furnihub.entity.User;
 import com.furnihub.repository.AdminRepository;
 import com.furnihub.repository.CouponRepository;
 import com.furnihub.repository.OrderRepository;
+import com.furnihub.repository.ProductImageRepository;
 import com.furnihub.repository.ProductRepository;
 import com.furnihub.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +35,18 @@ public class CustomerOrderController {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final CouponRepository couponRepository;
+    private final ProductImageRepository productImageRepository;
 
     public CustomerOrderController(OrderRepository orderRepository,
                                    ProductRepository productRepository,
                                    UserRepository userRepository,
-                                   CouponRepository couponRepository) {
+                                   CouponRepository couponRepository,
+                                   ProductImageRepository productImageRepository) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.couponRepository = couponRepository;
+        this.productImageRepository = productImageRepository;
     }
 
     @PostMapping("/orders")
@@ -203,13 +208,18 @@ public class CustomerOrderController {
         receipt.setDeliveryDate(order.getCreatedAt() != null ? order.getCreatedAt().plusDays(5).toString() : null);
 
         List<ReceiptItemResponse> items = order.getOrderItems().stream()
-                .map(item -> new ReceiptItemResponse(
-                        item.getProduct().getName(),
-                        item.getProduct().getBrand(),
-                        item.getQuantity(),
-                        item.getPricePerUnit(),
-                        item.getTotalPrice()
-                ))
+                .map(item -> {
+                    List<ProductImage> images = productImageRepository.findByProductId(item.getProduct().getProductId());
+                    String imageUrl = images.isEmpty() ? null : images.get(0).getImageUrl();
+                    return new ReceiptItemResponse(
+                            item.getProduct().getName(),
+                            item.getProduct().getBrand(),
+                            item.getQuantity(),
+                            item.getPricePerUnit(),
+                            item.getTotalPrice(),
+                            imageUrl
+                    );
+                })
                 .collect(Collectors.toList());
         receipt.setItems(items);
 
@@ -258,6 +268,10 @@ public class CustomerOrderController {
                     itemResponse.setQuantity(item.getQuantity());
                     itemResponse.setPricePerUnit(item.getPricePerUnit());
                     itemResponse.setTotalPrice(item.getTotalPrice());
+                    List<ProductImage> images = productImageRepository.findByProductId(item.getProduct().getProductId());
+                    if (!images.isEmpty()) {
+                        itemResponse.setImageUrl(images.get(0).getImageUrl());
+                    }
                     return itemResponse;
                 })
                 .collect(Collectors.toList());
