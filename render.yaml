@@ -5,7 +5,7 @@ services:
     plan: starter
     branch: main
     rootDir: backend
-    dockerfilePath: Dockerfile
+    dockerfilePath: backend/Dockerfile
     envVars:
       - key: DB_URL
         value: jdbc:mysql://mysql-2935786a-singhvaibhavkr42-d207.g.aivencloud.com:13615/defaultdb?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
