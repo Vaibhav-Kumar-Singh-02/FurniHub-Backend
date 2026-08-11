@@ -156,8 +156,8 @@ CREATE TABLE IF NOT EXISTS wishlist (
 );
 
 -- Insert default admin user (password: admin123)
-INSERT IGNORE INTO users (username, full_name, email, mobile, password, role) 
-VALUES ('admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$rH8qZ7xY5wE3vR2tY7uI.eKjH8gF4dS2aB3cD4eF5gH6iJ7kL8mN9', 'ADMIN');
+INSERT IGNORE INTO users (username, full_name, email, mobile, password, role, is_active) 
+VALUES ('admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$rH8qZ7xY5wE3vR2tY7uI.eKjH8gF4dS2aB3cD4eF5gH6iJ7kL8mN9', 'ADMIN', true);
 
 -- Admin Users table (separate from customer users)
 CREATE TABLE IF NOT EXISTS admin_users (
@@ -174,5 +174,5 @@ CREATE TABLE IF NOT EXISTS admin_users (
 );
 
 -- Insert default admin credentials into admin_users (password: admin123)
-INSERT IGNORE INTO admin_users (username, full_name, email, mobile, password, role) 
-VALUES ('admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN');
+INSERT IGNORE INTO admin_users (username, full_name, email, mobile, password, role, is_active) 
+VALUES ('admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN', true);
