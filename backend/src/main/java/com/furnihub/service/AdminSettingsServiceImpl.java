@@ -2,13 +2,19 @@ package com.furnihub.service;
 
 import com.furnihub.dto.AdminSettingsRequest;
 import com.furnihub.dto.UserResponse;
+import com.furnihub.entity.AppSettings;
 import com.furnihub.entity.User;
+import com.furnihub.repository.AppSettingsRepository;
 import com.furnihub.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AdminSettingsServiceImpl implements AdminSettingsService {
@@ -17,11 +23,14 @@ public class AdminSettingsServiceImpl implements AdminSettingsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AppSettingsRepository appSettingsRepository;
 
     public AdminSettingsServiceImpl(UserRepository userRepository,
-                                         PasswordEncoder passwordEncoder) {
+                                    PasswordEncoder passwordEncoder,
+                                    AppSettingsRepository appSettingsRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.appSettingsRepository = appSettingsRepository;
     }
 
     @Override
@@ -107,6 +116,50 @@ public class AdminSettingsServiceImpl implements AdminSettingsService {
         userRepository.save(user);
 
         logger.info("Password changed for admin: {}", email);
+    }
+
+    @Override
+    public Map<String, String> getAppSettings() {
+        Optional<AppSettings> settingsOpt = appSettingsRepository.findFirstByOrderByIdAsc();
+        if (settingsOpt.isPresent()) {
+            AppSettings settings = settingsOpt.get();
+            Map<String, String> map = new HashMap<>();
+            map.put("siteName", settings.getSiteName());
+            map.put("siteDescription", settings.getSiteDescription());
+            map.put("supportEmail", settings.getSupportEmail());
+            map.put("currency", settings.getCurrency());
+            return map;
+        }
+        Map<String, String> defaults = new HashMap<>();
+        defaults.put("siteName", "FurniHub");
+        defaults.put("siteDescription", "Comfortable Living Spaces");
+        defaults.put("supportEmail", "support@furnihub.com");
+        defaults.put("currency", "INR");
+        return defaults;
+    }
+
+    @Override
+    @Transactional
+    public Map<String, String> updateAppSettings(Map<String, String> settings) {
+        Optional<AppSettings> settingsOpt = appSettingsRepository.findFirstByOrderByIdAsc();
+        AppSettings appSettings = settingsOpt.orElse(new AppSettings());
+
+        if (settings.containsKey("siteName")) {
+            appSettings.setSiteName(settings.get("siteName"));
+        }
+        if (settings.containsKey("siteDescription")) {
+            appSettings.setSiteDescription(settings.get("siteDescription"));
+        }
+        if (settings.containsKey("supportEmail")) {
+            appSettings.setSupportEmail(settings.get("supportEmail"));
+        }
+        if (settings.containsKey("currency")) {
+            appSettings.setCurrency(settings.get("currency"));
+        }
+
+        appSettingsRepository.save(appSettings);
+        logger.info("Application settings updated");
+        return Map.of("message", "Application settings updated successfully");
     }
 
     private UserResponse mapToResponse(User user) {

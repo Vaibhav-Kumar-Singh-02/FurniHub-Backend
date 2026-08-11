@@ -53,16 +53,11 @@ public class AdminSettingsController {
 
     @GetMapping("/app")
     public ResponseEntity<Map<String, String>> getAppSettings() {
-        return ResponseEntity.ok(Map.of(
-                "siteName", "FurniHub",
-                "siteDescription", "Comfortable Living Spaces",
-                "supportEmail", "support@furnihub.com",
-                "currency", "INR"
-        ));
+        return ResponseEntity.ok(adminSettingsService.getAppSettings());
     }
 
     @PutMapping("/app")
     public ResponseEntity<Map<String, String>> updateAppSettings(@RequestBody Map<String, String> settings) {
-        return ResponseEntity.ok(Map.of("message", "Application settings updated successfully"));
+        return ResponseEntity.ok(adminSettingsService.updateAppSettings(settings));
     }
 }
