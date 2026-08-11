@@ -1,23 +1,34 @@
--- 1. Insert Categories
+-- 1. Insert Categories (Matching exact local database categories)
 INSERT IGNORE INTO categories (categorie_id, category_name, description) VALUES
-(1, 'Living Room', 'Comfortable sofas, armchairs, and coffee tables for your living space'),
-(2, 'Bedroom', 'Cozy beds, nightstands, and dressers for a restful sleep'),
-(3, 'Dining', 'Elegant dining tables, chairs, and sideboards for memorable meals'),
-(4, 'Office', 'Ergonomic desks and office chairs for maximum productivity'),
-(5, 'Decor', 'Stylish lamps, rugs, and decorative accessories');
+(1, 'Bed', 'Beds and bedroom furniture'),
+(2, 'Bookshelf', 'Bookshelves and storage units'),
+(3, 'Center Table', 'Center tables and coffee tables'),
+(4, 'Dressing Table', 'Dressing tables and vanity units'),
+(5, 'Dining Table', 'Dining tables and dining sets'),
+(6, 'Decor', 'Home decor and accessories'),
+(7, 'Lockers', 'Lockers and storage cabinets'),
+(8, 'Sofa', 'Comfortable sofas and couches'),
+(9, 'Office-Chair', 'Ergonomic office chairs'),
+(10, 'Office-Table', 'Office tables and work desks'),
+(11, 'Side-Table', 'Side tables and end tables'),
+(12, 'Shoe-Rack', 'Shoe racks and organizers'),
+(13, 'TV-unit', 'TV units and entertainment consoles'),
+(14, 'Wardrobe', 'Wardrobes and armoires'),
+(15, 'Test Category', 'Test category'),
+(17, 'Living Room Furniture', 'Furniture for living room');
 
 -- 2. Insert Products
 INSERT IGNORE INTO products (product_id, name, brand, categorie_id, subcategory, description, price, discount, stock, ratings, status) VALUES
-(1, 'Modern Velvet Sofa', 'FurniHub Luxury', 1, 'Sofas', 'Plush 3-seater velvet sofa with solid hardwood frame and high-density foam cushions.', 899.99, 10, 15, 4.8, 'ACTIVE'),
-(2, 'Minimalist Wooden Coffee Table', 'FurniHub Craft', 1, 'Tables', 'Handcrafted oak coffee table with sleek rounded edges and open storage shelf.', 249.99, 5, 25, 4.6, 'ACTIVE'),
-(3, 'Ergonomic Lounge Armchair', 'FurniHub Comfort', 1, 'Chairs', 'Premium leather reclining lounge chair with lumbar support and ottoman.', 450.00, 15, 10, 4.9, 'ACTIVE'),
-(4, 'King Size Wooden Bed Frame', 'FurniHub Sleep', 2, 'Beds', 'Solid teak wood bed frame with built-in headboard and sturdy wooden slats.', 1199.99, 12, 8, 4.7, 'ACTIVE'),
-(5, '2-Drawer Nightstand', 'FurniHub Sleep', 2, 'Nightstands', 'Compact nightstand with soft-close drawers and brass handles.', 149.99, 0, 30, 4.5, 'ACTIVE'),
-(6, '6-Person Solid Wood Dining Table', 'FurniHub Living', 3, 'Dining Tables', 'Spacious walnut dining table perfect for family gatherings.', 799.99, 10, 12, 4.9, 'ACTIVE'),
-(7, 'Upholstered Dining Chair (Set of 2)', 'FurniHub Living', 3, 'Dining Chairs', 'Set of 2 cushioned dining chairs with mid-century tapered legs.', 199.99, 5, 20, 4.7, 'ACTIVE'),
-(8, 'Adjustable Standing Desk', 'FurniHub Work', 4, 'Desks', 'Electric height-adjustable desk with dual motor and memory presets.', 499.99, 15, 18, 4.8, 'ACTIVE'),
-(9, 'Ergonomic Mesh Office Chair', 'FurniHub Work', 4, 'Chairs', 'Breathable mesh chair with 3D armrests and lumbar support.', 299.99, 10, 22, 4.6, 'ACTIVE'),
-(10, 'Nordic Ceramic Table Lamp', 'FurniHub Decor', 5, 'Lighting', 'Warm ambient ceramic table lamp with linen shade.', 79.99, 0, 40, 4.8, 'ACTIVE');
+(1, 'Modern Velvet Sofa', 'FurniHub Luxury', 8, 'Sofas', 'Plush 3-seater velvet sofa with solid hardwood frame and high-density foam cushions.', 899.99, 10, 15, 4.8, 'ACTIVE'),
+(2, 'Minimalist Wooden Coffee Table', 'FurniHub Craft', 3, 'Tables', 'Handcrafted oak coffee table with sleek rounded edges and open storage shelf.', 249.99, 5, 25, 4.6, 'ACTIVE'),
+(3, 'Ergonomic Lounge Armchair', 'FurniHub Comfort', 8, 'Chairs', 'Premium leather reclining lounge chair with lumbar support and ottoman.', 450.00, 15, 10, 4.9, 'ACTIVE'),
+(4, 'King Size Wooden Bed Frame', 'FurniHub Sleep', 1, 'Beds', 'Solid teak wood bed frame with built-in headboard and sturdy wooden slats.', 1199.99, 12, 8, 4.7, 'ACTIVE'),
+(5, '2-Drawer Nightstand', 'FurniHub Sleep', 11, 'Nightstands', 'Compact nightstand with soft-close drawers and brass handles.', 149.99, 0, 30, 4.5, 'ACTIVE'),
+(6, '6-Person Solid Wood Dining Table', 'FurniHub Living', 5, 'Dining Tables', 'Spacious walnut dining table perfect for family gatherings.', 799.99, 10, 12, 4.9, 'ACTIVE'),
+(7, 'Upholstered Dining Chair (Set of 2)', 'FurniHub Living', 5, 'Dining Chairs', 'Set of 2 cushioned dining chairs with mid-century tapered legs.', 199.99, 5, 20, 4.7, 'ACTIVE'),
+(8, 'Adjustable Standing Desk', 'FurniHub Work', 10, 'Desks', 'Electric height-adjustable desk with dual motor and memory presets.', 499.99, 15, 18, 4.8, 'ACTIVE'),
+(9, 'Ergonomic Mesh Office Chair', 'FurniHub Work', 9, 'Chairs', 'Breathable mesh chair with 3D armrests and lumbar support.', 299.99, 10, 22, 4.6, 'ACTIVE'),
+(10, 'Nordic Ceramic Table Lamp', 'FurniHub Decor', 6, 'Lighting', 'Warm ambient ceramic table lamp with linen shade.', 79.99, 0, 40, 4.8, 'ACTIVE');
 
 -- 3. Insert Product Images
 INSERT IGNORE INTO productimages (image_id, product_id, image_url) VALUES
