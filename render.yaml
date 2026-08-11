@@ -8,9 +8,9 @@ services:
     dockerfilePath: Dockerfile
     envVars:
       - key: DB_URL
-        value: jdbc:mysql://<your-aiven-host>:<your-aiven-port>/<your-aiven-db>?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+        value: jdbc:mysql://mysql-2935786a-singhvaibhavkr42-d207.g.aivencloud.com:13615/defaultdb?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       - key: DB_USERNAME
-        value: <your-aiven-username>
+        value: avnadmin
       - key: DB_PASSWORD
         value: <your-aiven-password>
       - key: JWT_SECRET
