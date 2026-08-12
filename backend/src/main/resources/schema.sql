@@ -1,7 +1,5 @@
--- Run this schema against your configured database
--- The application will connect to the database specified in DB_URL
+-- FurniHub Schema Initialization Script for Spring Boot / Railway Database
 
--- Users table
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL DEFAULT '',
@@ -15,7 +13,6 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- JWT Tokens table
 CREATE TABLE IF NOT EXISTS jwt_tokens (
     token_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -25,7 +22,6 @@ CREATE TABLE IF NOT EXISTS jwt_tokens (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- OTP table for forgot password
 CREATE TABLE IF NOT EXISTS otp_verification (
     otp_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -36,7 +32,6 @@ CREATE TABLE IF NOT EXISTS otp_verification (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Categories table
 CREATE TABLE IF NOT EXISTS categories (
     categorie_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(255) NOT NULL,
@@ -44,7 +39,6 @@ CREATE TABLE IF NOT EXISTS categories (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Products table
 CREATE TABLE IF NOT EXISTS products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -67,7 +61,6 @@ CREATE TABLE IF NOT EXISTS products (
     FOREIGN KEY (categorie_id) REFERENCES categories(categorie_id) ON DELETE SET NULL
 );
 
--- Product Images table
 CREATE TABLE IF NOT EXISTS productimages (
     image_id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
@@ -75,7 +68,6 @@ CREATE TABLE IF NOT EXISTS productimages (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
--- Cart Items table
 CREATE TABLE IF NOT EXISTS cart_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -85,7 +77,6 @@ CREATE TABLE IF NOT EXISTS cart_items (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
--- Orders table
 CREATE TABLE IF NOT EXISTS orders (
     order_id VARCHAR(255) PRIMARY KEY,
     user_id INT NOT NULL,
@@ -98,7 +89,6 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Order Items table
 CREATE TABLE IF NOT EXISTS order_items (
     order_item_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id VARCHAR(255) NOT NULL,
@@ -110,7 +100,6 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
--- Coupons table
 CREATE TABLE IF NOT EXISTS coupons (
     coupon_id INT AUTO_INCREMENT PRIMARY KEY,
     code VARCHAR(50) NOT NULL UNIQUE,
@@ -121,15 +110,14 @@ CREATE TABLE IF NOT EXISTS coupons (
     usage_limit INT,
     used_count INT DEFAULT 0,
     is_active BOOLEAN DEFAULT TRUE,
-    valid_from TIMESTAMP,
-    valid_until TIMESTAMP,
+    valid_from TIMESTAMP NULL DEFAULT NULL,
+    valid_until TIMESTAMP NULL DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     applies_to VARCHAR(20) DEFAULT 'ALL',
     product_ids TEXT
 );
 
--- Reviews table
 CREATE TABLE IF NOT EXISTS reviews (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
@@ -144,7 +132,6 @@ CREATE TABLE IF NOT EXISTS reviews (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Wishlist table
 CREATE TABLE IF NOT EXISTS wishlist (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -155,11 +142,6 @@ CREATE TABLE IF NOT EXISTS wishlist (
     UNIQUE KEY unique_wishlist (user_id, product_id)
 );
 
--- Insert default admin user (password: admin123)
-INSERT IGNORE INTO users (username, full_name, email, mobile, password, role, is_active) 
-VALUES ('admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$rH8qZ7xY5wE3vR2tY7uI.eKjH8gF4dS2aB3cD4eF5gH6iJ7kL8mN9', 'ADMIN', true);
-
--- Admin Users table (separate from customer users)
 CREATE TABLE IF NOT EXISTS admin_users (
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL DEFAULT '',
@@ -173,11 +155,6 @@ CREATE TABLE IF NOT EXISTS admin_users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Insert default admin credentials into admin_users (password: admin123)
-INSERT IGNORE INTO admin_users (username, full_name, email, mobile, password, role, is_active) 
-VALUES ('admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN', true);
-
--- App Settings table
 CREATE TABLE IF NOT EXISTS app_settings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     site_name VARCHAR(100),

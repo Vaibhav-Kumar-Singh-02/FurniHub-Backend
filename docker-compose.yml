@@ -6,7 +6,7 @@ services:
     container_name: furnihub-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: vaibhav
+      MYSQL_ROOT_PASSWORD: Robin@Singh@755321
       MYSQL_DATABASE: e_commerce
     ports:
       - "3306:3306"
@@ -26,15 +26,16 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/e_commerce?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/e_commerce?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: vaibhav
+      SPRING_DATASOURCE_PASSWORD: Robin@Singh@755321
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       JWT_SECRET: FurniHubSecretKeyForJWTTokenGeneration2024SecureRandomValue
       JWT_EXPIRATION: 2592000000
       RAZORPAY_KEY_ID: rzp_test_TLJ4wDlknTTeqx
       RAZORPAY_KEY_SECRET: OaxbN5tf8PlOXaNG0WZ8FduM
       RAZORPAY_MODE: test
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
     depends_on:
       mysql:
         condition: service_healthy

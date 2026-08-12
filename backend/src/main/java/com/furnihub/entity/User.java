@@ -36,6 +36,13 @@ public class User {
     @Column(nullable = false)
     private Role role = Role.CUSTOMER;
 
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+
+    public Boolean getIsActive() {
+        return isActive != null ? isActive : true;
+    }
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
