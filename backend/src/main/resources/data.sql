@@ -142,7 +142,7 @@ INSERT INTO productimages (image_id, product_id, image_url) VALUES
 (47, 47, 'https://ik.imagekit.io/StringstackHari/Project_funiture/n_table%202.jpg'),
 (48, 48, 'https://ik.imagekit.io/StringstackHari/Project_funiture/n_table%201.jpg'),
 (49, 49, 'https://ik.imagekit.io/StringstackMonika/product%20images/81inGzxlahL._SL1500_.jpg'),
-(50, 50, 'https://ik.imagekit.io/StringstackMonika/product%20images/71XvNqxja8L._SL1500_.jpg'),
+(50, 50, 'https://raw.githubusercontent.com/Vaibhav-Kumar-Singh-02/FurniHub-Backend/main/images/wall_decor_art.png'),
 (51, 51, 'https://ik.imagekit.io/StringstackMonika/product%20images/81pZNN2BPEL._SL1500_.jpg'),
 (52, 52, 'https://ik.imagekit.io/StringstackMonika/product%20images/51ODqHsXbRL.jpg'),
 (53, 53, 'https://ik.imagekit.io/StringstackMonika/product%20images/51-R20UxJVL._SL1080_.jpg'),
