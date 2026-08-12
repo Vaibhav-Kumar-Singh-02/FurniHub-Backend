@@ -242,6 +242,57 @@ public class CustomerOrderController {
         return ResponseEntity.ok(receipt);
     }
 
+    @PostMapping("/orders/{orderId}/return")
+    @Transactional
+    public ResponseEntity<?> returnOrder(Authentication authentication,
+                                         @PathVariable String orderId,
+                                         @RequestBody(required = false) java.util.Map<String, String> request) {
+        try {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            Order order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new RuntimeException("Order not found"));
+
+            if (!order.getUser().getUserId().equals(user.getUserId())) {
+                return ResponseEntity.status(403).body("You are not authorized to return this order");
+            }
+
+            if (order.getStatus() == Order.OrderStatus.RETURNED) {
+                return ResponseEntity.badRequest().body("Order is already returned");
+            }
+
+            if (order.getStatus() == Order.OrderStatus.CANCELLED) {
+                return ResponseEntity.badRequest().body("Cancelled orders cannot be returned");
+            }
+
+            LocalDateTime referenceDate = order.getUpdatedAt() != null ? order.getUpdatedAt() : order.getCreatedAt();
+            if (referenceDate != null && referenceDate.plusDays(15).isBefore(LocalDateTime.now())) {
+                return ResponseEntity.badRequest().body("Return window expired. Returns are only allowed within 15 days of delivery.");
+            }
+
+            order.setStatus(Order.OrderStatus.RETURNED);
+            order.setUpdatedAt(LocalDateTime.now());
+
+            if (order.getOrderItems() != null) {
+                for (OrderItem item : order.getOrderItems()) {
+                    Product product = item.getProduct();
+                    if (product != null) {
+                        product.setStock(product.getStock() + item.getQuantity());
+                        productRepository.save(product);
+                    }
+                }
+            }
+
+            orderRepository.save(order);
+            return ResponseEntity.ok(mapToResponse(order));
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to process return: " + e.getMessage());
+        }
+    }
+
     private OrderResponse mapToResponse(Order order) {
         OrderResponse response = new OrderResponse();
         response.setOrderId(order.getOrderId());
