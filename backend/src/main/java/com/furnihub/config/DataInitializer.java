@@ -28,36 +28,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (categoryRepository.count() > 0) {
-            return;
-        }
-
-        // Seed categories
-        Category livingRoom = saveCategory("Living Room");
-        Category bedroom = saveCategory("Bedroom");
-        Category dining = saveCategory("Dining");
-
-        // Seed products with images
-        saveProduct("Premium Sofa Set", "FurniHub Luxury", "Elegant 3-seater sofa with plush cushions and solid wood frame", new BigDecimal("35999"), 15, livingRoom.getCategorieId(),
-                "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80");
-        saveProduct("Accent Chair", "FurniHub Craft", "Modern accent chair with ergonomic design and fabric upholstery", new BigDecimal("12999"), 25, livingRoom.getCategorieId(),
-                "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=400&q=80");
-        saveProduct("Coffee Table", "FurniHub Craft", "Sleek glass-top coffee table with metal legs", new BigDecimal("8999"), 30, livingRoom.getCategorieId(),
-                "https://images.unsplash.com/photo-1532372576444-dda953c42b36?w=400&q=80");
-
-        saveProduct("Queen Size Bed", "FurniHub Sleep", "Solid wood queen bed with storage and headboard", new BigDecimal("49999"), 10, bedroom.getCategorieId(),
-                "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=80");
-        saveProduct("Wardrobe", "FurniHub Storage", "Spacious 3-door wardrobe with mirror and multiple compartments", new BigDecimal("45999"), 8, bedroom.getCategorieId(),
-                "https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=400&q=80");
-        saveProduct("Bedside Table", "FurniHub Craft", "Compact bedside table with drawer and open shelf", new BigDecimal("6999"), 40, bedroom.getCategorieId(),
-                "https://images.unsplash.com/photo-1532372576444-dda953c42b36?w=400&q=80");
-
-        saveProduct("Dining Table Set", "FurniHub Living", "6-seater wooden dining table with chairs", new BigDecimal("28999"), 12, dining.getCategorieId(),
-                "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=400&q=80");
-        saveProduct("Dining Chair Set (4)", "FurniHub Living", "Set of 4 upholstered dining chairs with cushioned seats", new BigDecimal("15999"), 20, dining.getCategorieId(),
-                "https://images.unsplash.com/photo-1503602642458-232111445657?w=400&q=80");
-
-        System.out.println("=== Seed data loaded: 3 categories, 8 products ===");
+        // Data auto-seeding is managed cleanly by data.sql
+        return;
     }
 
     private Category saveCategory(String name) {
