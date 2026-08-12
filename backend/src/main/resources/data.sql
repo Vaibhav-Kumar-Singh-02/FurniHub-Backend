@@ -163,11 +163,46 @@ INSERT INTO productimages (image_id, product_id, image_url) VALUES
 (69, 69, 'https://ik.imagekit.io/StringstackMonika/product%20images/51-R20UxJVL._SL1080_.jpg')
 ON DUPLICATE KEY UPDATE image_url=VALUES(image_url);
 
--- 4. Insert Default Admin User (Email: admin@furnihub.com | Password: admin123)
+-- 4. Insert Default Admin & Customer Users
 INSERT INTO admin_users (admin_id, username, full_name, email, mobile, password, role, is_active) 
 VALUES (1, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN', true)
 ON DUPLICATE KEY UPDATE is_active = true;
 
-INSERT INTO users (user_id, username, full_name, email, mobile, password, role, is_active) 
-VALUES (1, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$rH8qZ7xY5wE3vR2tY7uI.eKjH8gF4dS2aB3cD4eF5gH6iJ7kL8mN9', 'ADMIN', true)
+INSERT INTO users (user_id, username, full_name, email, mobile, password, role, is_active) VALUES
+(1, 'Test User', 'Test User', 'test@example.com', '9876543210', '$2a$10$iPbDOQ6zp5T0jdXj6AVtRec5bvNBfOjcsN.UUwL5prkoy7f5.23eK', 'CUSTOMER', true),
+(2, 'Guddu', 'Guddu', 'guddu@gmail.com', '9876543212', '$2a$10$hsCr1tBKvUreDPr4z/MlY.LFkklWR0P5AljntRvc1fNNSgFTDIsDO', 'CUSTOMER', true),
+(3, 'Test User d0dea', 'Test User d0dea', 'test1pri2t@example.com', '6557095618', '$2a$10$9OrTKqIcwHNvVb6y9SfUUuN4xmDHE1Kwki/gx6H90ukNO0KQ1Cw22', 'CUSTOMER', true),
+(4, 'Robin', 'Robin', 'robin123@gmail.com', '8976543219', '$2a$10$dg1OmAQ9cDmflNebVa3XruebNTXeU/JxwqlKE6JxCLNVWYML1oFn.', 'CUSTOMER', true),
+(6, 'robin@gmail.com', 'Robin', 'robin@gmail.com', '9987766553', '$2a$10$4DmQuXvzIc4M0dHAFsJVZemiip6/UA0J6x1JkinzXM.Pb6EoPXCri', 'CUSTOMER', true),
+(7, 'chikku', 'chikku', 'chikku12@gmail.com', '8065798431', '$2a$10$rk7E0m2EjFyqCUKvCosInObCA0Y4.REIeSS3ShY4emDUNLFOMCZiK', 'CUSTOMER', true),
+(8, 'admin', 'Admin User', 'admin@furnihub.com', '9999999999', '$2a$10$1qkdcsErdmX/4KVui1Fgv.jNGbkNFOOFJWlgiBz3JqzpVlLP6uNSq', 'ADMIN', true),
+(10, 'New User', 'New User', 'newuser@test.com', '8888888888', '$2a$10$Dwi.K9iqbfsyjx6B1qBqxue6NdnACRtJdmvppGj.kWdwxW6HCADle', 'CUSTOMER', true)
 ON DUPLICATE KEY UPDATE is_active = true;
+
+-- 5. Insert Coupons
+INSERT INTO coupons (coupon_id, code, discount_type, discount_value, is_active, min_purchase_amount, max_discount_amount, usage_limit, used_count, applies_to) VALUES
+(1, 'TEST25', 'PERCENTAGE', 25.00, true, NULL, NULL, 100, 0, 'ALL'),
+(3, 'FURNITURE10', 'PERCENTAGE', 10.00, true, NULL, NULL, 50, 0, 'ALL'),
+(5, 'DISCOUNT', 'PERCENTAGE', 10.00, true, NULL, NULL, 0, 0, 'ALL'),
+(52, 'DIS', 'PERCENTAGE', 5.00, true, NULL, NULL, 0, 0, 'ALL'),
+(102, 'TESTSPECIFIC', 'PERCENTAGE', 15.00, true, NULL, NULL, 50, 0, 'SPECIFIC')
+ON DUPLICATE KEY UPDATE code=VALUES(code);
+
+-- 6. Insert Orders & Order Items
+INSERT INTO orders (order_id, user_id, total_amount, status, payment_method, shipping_address, created_at, updated_at) VALUES
+('2a9a77e141054312', 8, 15000.00, 'DELIVERED', 'Cash on Delivery', '123 Test Street, Test City', '2026-08-05 07:41:13', '2026-08-09 06:18:29'),
+('30c711099e3e43fc', 6, 19999.00, 'DELIVERED', 'Cash on Delivery', 'Robin, HSR, Bhagalpur, Bihar, 802001', '2026-08-05 09:37:26', '2026-08-08 07:46:25'),
+('3b156f969c9e44e2', 6, 24999.00, 'CONFIRMED', 'Razorpay', 'Robin, HSR, Bangalore, Karnataka, 560089', '2026-08-08 07:03:50', '2026-08-08 07:03:50')
+ON DUPLICATE KEY UPDATE status=VALUES(status);
+
+INSERT INTO order_items (order_item_id, order_id, product_id, quantity, price_per_unit, total_price) VALUES
+(1, '2a9a77e141054312', 1, 1, 15000.00, 15000.00),
+(2, '30c711099e3e43fc', 27, 1, 19999.00, 19999.00),
+(3, '3b156f969c9e44e2', 26, 1, 24999.00, 24999.00)
+ON DUPLICATE KEY UPDATE total_price=VALUES(total_price);
+
+-- 7. Insert Reviews
+INSERT INTO reviews (review_id, product_id, user_id, rating, comment, status, created_at, updated_at) VALUES
+(11, 1, 8, 5, 'GOOD', 'APPROVED', '2026-08-09 14:33:18', '2026-08-09 14:33:35')
+ON DUPLICATE KEY UPDATE comment=VALUES(comment);
+
