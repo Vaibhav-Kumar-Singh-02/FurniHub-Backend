@@ -1,4 +1,6 @@
 -- 1. Insert Categories (Exact local database categories)
+DELETE FROM categories WHERE category_name IN ('Test Category', 'Living Room Furniture');
+
 INSERT IGNORE INTO categories (categorie_id, category_name, description) VALUES
 (1, 'Bed', 'Beds and bedroom furniture'),
 (2, 'Bookshelf', 'Bookshelves and storage units'),
@@ -13,9 +15,7 @@ INSERT IGNORE INTO categories (categorie_id, category_name, description) VALUES
 (11, 'Side-Table', 'Side tables and end tables'),
 (12, 'Shoe-Rack', 'Shoe racks and organizers'),
 (13, 'TV-unit', 'TV units and entertainment consoles'),
-(14, 'Wardrobe', 'Wardrobes and armoires'),
-(15, 'Test Category', 'Test category'),
-(17, 'Living Room Furniture', 'Furniture for living room');
+(14, 'Wardrobe', 'Wardrobes and armoires');
 
 -- 2. Insert Products (All 69 products from local database)
 INSERT INTO products (product_id, name, brand, categorie_id, subcategory, description, price, discount, stock, ratings, status) VALUES
