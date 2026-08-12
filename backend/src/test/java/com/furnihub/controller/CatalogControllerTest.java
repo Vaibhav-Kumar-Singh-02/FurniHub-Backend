@@ -1,9 +1,12 @@
 package com.furnihub.controller;
 
+import com.furnihub.config.JwtUtil;
 import com.furnihub.dto.ProductResponse;
 import com.furnihub.service.CatalogService;
+import com.furnihub.service.CustomUserDetailsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CatalogController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class CatalogControllerTest {
 
     @Autowired
@@ -24,6 +28,12 @@ class CatalogControllerTest {
 
     @MockBean
     private CatalogService catalogService;
+
+    @MockBean
+    private JwtUtil jwtUtil;
+
+    @MockBean
+    private CustomUserDetailsService customUserDetailsService;
 
     @Test
     void shouldReturnProductsFromCatalogService() throws Exception {
