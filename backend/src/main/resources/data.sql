@@ -156,9 +156,9 @@ INSERT INTO productimages (image_id, product_id, image_url) VALUES
 (61, 61, 'https://ik.imagekit.io/StringstackMonika/product%20images/71AC-yv3hbL._SL1500_.jpg'),
 (62, 62, 'https://ik.imagekit.io/StringstackMonika/product%20images/51ZlBUCqJ0L.jpg'),
 (63, 63, 'https://ik.imagekit.io/StringstackMonika/product%20images/71aUtnbJSoL._SL1155_.jpg'),
-(64, 64, 'https://ik.imagekit.io/StringstackMonika/product%20images/71RGUKbF3gL._SL1500_.jpg'),
+(64, 64, 'https://raw.githubusercontent.com/Vaibhav-Kumar-Singh-02/FurniHub-Backend/main/images/decor_console_table.png'),
 (65, 65, 'https://ik.imagekit.io/StringstackMonika/product%20images/71SB0AEmxhL._SL1222_.jpg'),
-(66, 66, 'https://ik.imagekit.io/StringstackMonika/product%20images/61D8JTujXAL._SL1024_.jpg'),
+(66, 66, 'https://ik.imagekit.io/StringstackMonika/product%20images/71RGUKbF3gL._SL1500_.jpg'),
 (67, 67, 'https://ik.imagekit.io/StringstackMonika/product%20images/61D8JTujXAL._SL1024_.jpg'),
 (68, 68, 'https://raw.githubusercontent.com/Vaibhav-Kumar-Singh-02/FurniHub-Backend/main/images/fireproof_locker.png'),
 (69, 69, 'https://raw.githubusercontent.com/Vaibhav-Kumar-Singh-02/FurniHub-Backend/main/images/fabric_wardrobe.png')
