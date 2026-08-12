@@ -161,7 +161,7 @@ INSERT INTO productimages (image_id, product_id, image_url) VALUES
 (66, 66, 'https://ik.imagekit.io/StringstackMonika/product%20images/61D8JTujXAL._SL1024_.jpg'),
 (67, 67, 'https://ik.imagekit.io/StringstackMonika/product%20images/61D8JTujXAL._SL1024_.jpg'),
 (68, 68, 'https://ik.imagekit.io/StringstackMonika/product%20images/81pZNN2BPEL._SL1500_.jpg'),
-(69, 69, 'https://ik.imagekit.io/StringstackMonika/product%20images/71gfBX64sTL._SL1500_.jpg')
+(69, 69, 'https://raw.githubusercontent.com/Vaibhav-Kumar-Singh-02/FurniHub-Backend/main/images/fabric_wardrobe.png')
 ON DUPLICATE KEY UPDATE image_url=VALUES(image_url);
 
 -- 4. Insert Default Admin & Customer Users
